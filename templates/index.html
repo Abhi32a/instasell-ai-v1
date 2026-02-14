@@ -2,33 +2,74 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>InstaSell AI | Enterprise Dashboard</title>
+    <title>InstaSell AI | Admin Pro</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --bg: #050505; --surface: #121212; --primary: #00f2ff; --text: #e0e0e0; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); margin: 0; display: flex; }
-        .sidebar { width: 240px; background: #000; height: 100vh; padding: 20px; border-right: 1px solid #333; }
-        .main { flex: 1; padding: 30px; }
-        .top-bar { display: flex; justify-content: space-between; align-items: center; }
-        .btn-primary { background: var(--primary); color: black; border: none; padding: 12px 24px; border-radius: 12px; cursor: pointer; font-weight: bold; }
-        .card { background: var(--surface); padding: 25px; border-radius: 20px; border: 1px solid #333; margin-top: 20px; }
+        :root { --p: #00f2ff; --bg: #050505; --card: #111; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: white; margin: 0; display: flex; }
+        
+        .sidebar { width: 260px; background: #000; height: 100vh; padding: 30px 20px; border-right: 1px solid #222; }
+        .nav-item { padding: 15px; margin: 10px 0; border-radius: 12px; cursor: pointer; display: flex; align-items: center; transition: 0.3s; color: #888; }
+        .nav-item i { margin-right: 15px; width: 20px; }
+        .nav-item:hover, .active { background: #1a1a1a; color: var(--p); box-shadow: inset 4px 0 0 var(--p); }
+
+        .main { flex: 1; padding: 40px; overflow-y: auto; }
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-bottom: 40px; }
+        .stat-card { background: var(--card); padding: 25px; border-radius: 20px; border: 1px solid #222; position: relative; }
+        .stat-card h4 { margin: 0; color: #666; font-size: 14px; text-transform: uppercase; }
+        .stat-card h2 { margin: 10px 0; font-size: 32px; }
+        
+        .chart-container { background: var(--card); padding: 25px; border-radius: 24px; border: 1px solid #222; }
+        .btn-add { background: var(--p); color: black; border: none; padding: 12px 25px; border-radius: 12px; font-weight: bold; cursor: pointer; float: right; }
     </style>
 </head>
 <body>
-    <div class="sidebar">
-        <h2 style="color:var(--primary)">InstaSell AI</h2>
-        <p>🏠 Dashboard</p>
-        <p>📦 Inventory</p>
-        <p>🛡️ Security</p>
+
+<div class="sidebar">
+    <h2 style="color: var(--p); margin-bottom: 40px;"><i class="fas fa-robot"></i> InstaSell AI</h2>
+    <div class="nav-item active"><i class="fas fa-th-large"></i> Dashboard</div>
+    <div class="nav-item"><i class="fas fa-users"></i> Sellers</div>
+    <div class="nav-item"><i class="fas fa-wallet"></i> Earnings</div>
+    <div class="nav-item"><i class="fas fa-shield-halved"></i> Security</div>
+    <div class="nav-item" style="margin-top: auto; color: #ff4d4d;"><i class="fas fa-sign-out-alt"></i> Logout</div>
+</div>
+
+<div class="main">
+    <button class="btn-add"><i class="fas fa-plus"></i> Add New Seller</button>
+    <h1>Command Center</h1>
+    <p style="color: #666;">Real-time system monitoring & AI performance.</p>
+
+    <div class="stats-grid">
+        <div class="stat-card"><h4>Monthly Revenue</h4><h2>₹42,199</h2><span style="color: #2ecc71;">+12% ↑</span></div>
+        <div class="stat-card"><h4>Active Sellers</h4><h2>124</h2><span style="color: var(--p);">Stable</span></div>
+        <div class="stat-card"><h4>AI Success Rate</h4><h2>98.4%</h2><span style="color: #2ecc71;">Excellent</span></div>
     </div>
-    <div class="main">
-        <div class="top-bar">
-            <h1>Command Center</h1>
-            <button class="btn-primary" onclick="alert('Trial Active: 2 Days Left')">+ Add Seller</button>
-        </div>
-        <div class="card">
-            <h3>System Status: <span style="color:#2ecc71">ONLINE</span></h3>
-            <p>Your AI agents are currently handling Instagram DMs.</p>
-        </div>
+
+    <div class="chart-container">
+        <h3>Sales Overview</h3>
+        <canvas id="salesChart" height="100"></canvas>
     </div>
+</div>
+
+<script>
+    const ctx = document.getElementById('salesChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+            datasets: [{
+                label: 'Sellers Growth',
+                data: [10, 45, 80, 124],
+                borderColor: '#00f2ff',
+                backgroundColor: 'rgba(0, 242, 255, 0.1)',
+                fill: true,
+                tension: 0.4
+            }]
+        },
+        options: { plugins: { legend: { display: false } }, scales: { y: { grid: { color: '#222' } }, x: { grid: { display: false } } } }
+    });
+</script>
+
 </body>
 </html>
